@@ -3,14 +3,17 @@ const students = ['Олександр', 'Ігор', 'Олена', 'Іра', 'О�
 const themes = ['Диференційне рівняння', 'Теорія автоматів', 'Алгоритми і структури даних'];
 
 const marks = [4, 5, 5, 3, 4, 5];
-
+const girls = [];
+const boys = [];
+const pairs = [];
 function coupleOfStudents(students) {
-  const pair = [
-    [students[0], students[2]],
-    [students[1], students[3]],
-    [students[4], students[5]],
-  ];
-  return pair;
+  students.map((el)=>{
+    el.lastIndexOf("а") === el.length-1 ? girls.push(el) : boys.push(el);
+  })
+  for (let i = 0; i < boys.length; i++) {
+    pairs.push([boys[i], girls[i]]);
+  }
+  return pairs;
 }
 const coupleArr = coupleOfStudents(students);
 document.writeln('<b>Пари студентів:</b><br>');
@@ -18,31 +21,26 @@ coupleArr.map((el) => {
   document.writeln(`${el}<br>`);
 });
 
-function StudentsWithThemes(students, themes) {
-  const getThemes = [
-    [students[0] + ' i ' + students[2], themes[0]],
-    [students[1] + ' i ' + students[3], themes[1]],
-    [students[4] + ' i ' + students[5], themes[2]],
-  ];
+function StudentsWithThemes(boys, girls, themes) {
+  const getThemes = [];
+  for (let i = 0; i < boys.length; i++) {
+    getThemes.push([boys[i] + " i " + girls[i], themes[i]]);
+  }
 
   return getThemes;
 }
 
-const StudentsThemes = StudentsWithThemes(students, themes);
+const StudentsThemes = StudentsWithThemes(boys, girls, themes);
 document.writeln('<b>Студенти і пари:</b><br>');
 StudentsThemes.map((el) => {
   document.writeln(`${el}<br>`);
 });
 
 function getMarks(students, marks) {
-  const studentsWithMarks = [
-    [students[0], marks[0]],
-    [students[1], marks[1]],
-    [students[2], marks[2]],
-    [students[3], marks[3]],
-    [students[4], marks[4]],
-    [students[5], marks[5]],
-  ];
+  const studentsWithMarks = [];
+  for(let i=0;i<students.length;i++){
+    studentsWithMarks.push([students[i], marks[i]]);
+  }
   return studentsWithMarks;
 }
 const studentsMark = getMarks(students, marks);
@@ -52,11 +50,11 @@ studentsMark.map((el) => {
 });
 
 function studentsAllInfo(StudentsThemes) {
-  const studentsAllInfoArr = [
-    [StudentsThemes[0], Math.floor(Math.random() * 5 + 1)],
-    [StudentsThemes[1], Math.floor(Math.random() * 5 + 1)],
-    [StudentsThemes[2], Math.floor(Math.random() * 5 + 1)],
-  ];
+  const studentsAllInfoArr = [];
+  for(let i=0;i<StudentsThemes.length;i++){
+    studentsAllInfoArr.push([StudentsThemes[i], Math.floor(Math.random() * 5 + 1)])
+  }
+
   return studentsAllInfoArr;
 }
 document.writeln('<b>Пари студентів з темами і оцінками:</b><br>');
